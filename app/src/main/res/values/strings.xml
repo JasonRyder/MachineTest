@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Mobulous</string>
+    <string name="loading">Loading</string>
+    <string name="no_result">No results found. Please search a restaurant or cuisine to show.</string>
+    <string name="no_bookmark">There are no restaurants bookmarked yet.</string>
+    <string name="title_activity_book_mark_activiy">Bookmarked Restaurant</string>
+    <string name="title_activity_main">Mobulous</string>
+
+</resources>
