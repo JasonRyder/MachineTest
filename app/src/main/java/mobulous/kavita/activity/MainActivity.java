@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mobulous.kavita.R;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,14 +78,29 @@ public class MainActivity extends AppCompatActivity implements RestaurantAdapter
                     if (TextUtils.isEmpty(searchText)) {
                         Toast.makeText(MainActivity.this, "Enter a text to search", Toast.LENGTH_SHORT).show();
                     } else {
-                        searchRestaurantCall(searchText);
-                        tvNoResult.setVisibility(View.GONE);
+                        if (isInternetAvailable()) {
+                            searchRestaurantCall(searchText);
+                            tvNoResult.setVisibility(View.GONE);
+                        } else {
+                            Toast.makeText(MainActivity.this, "No internet connection . Please check and retry.", Toast.LENGTH_SHORT).show();
+                        }
                     }
                     return true;
                 }
                 return false;
             }
         });
+    }
+
+    public boolean isInternetAvailable() {
+        try {
+            InetAddress ipAddr = InetAddress.getByName("google.com");
+            //You can replace it with your name
+            return !ipAddr.equals("");
+
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
