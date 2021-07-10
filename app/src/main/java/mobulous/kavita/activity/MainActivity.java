@@ -1,7 +1,10 @@
 package mobulous.kavita.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -83,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements RestaurantAdapter
                             tvNoResult.setVisibility(View.GONE);
                         } else {
                             Toast.makeText(MainActivity.this, "No internet connection . Please check and retry.", Toast.LENGTH_SHORT).show();
+                            progressCircular.setVisibility(View.GONE);
                         }
                     }
                     return true;
@@ -93,14 +97,10 @@ public class MainActivity extends AppCompatActivity implements RestaurantAdapter
     }
 
     public boolean isInternetAvailable() {
-        try {
-            InetAddress ipAddr = InetAddress.getByName("google.com");
-            //You can replace it with your name
-            return !ipAddr.equals("");
-
-        } catch (Exception e) {
-            return false;
-        }
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
     @Override
